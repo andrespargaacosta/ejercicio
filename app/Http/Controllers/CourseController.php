@@ -21,7 +21,7 @@ class CourseController extends BaseController{
     	$course = Course::all();
     	$total = $course->count();
     	$pages = ceil($total/self::PAGESIZE);
-    	if($pages < $page){
+    	if($pages < $page && $total != 0){
     		return response(json_encode(array('error'=>"Resource not found")),404)->header('Content-Type','application/json');	
     	}
 
