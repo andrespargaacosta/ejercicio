@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        /*
+        
         if($exception instanceof NotFoundHttpException){
             return response(
                 json_encode(array('error'=>"Resource not found")),404
@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
         if(method_exists($exception,'getStatusCode') && $exception->getStatusCode() == 405);{
             return response(json_encode(array( 'error'=>'Method not allowed' )),405)->header('Content-Type','application/json');
         }
-        */
+        
         
         return parent::render($request, $exception);
     }
