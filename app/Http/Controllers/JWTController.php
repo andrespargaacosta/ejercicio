@@ -11,46 +11,44 @@ use \Firebase\JWT\JWT;
 
 class JWTController extends BaseController{
 
+	/*
+	Our env vars and keys, stored into private static vars for performance:
 
+	$privateKey : our private key, the filemane was defined in the env file as "JWT_AUTH_PRIVATE_KEY"
+	$algo : our signing algorithm, defined in the env file as "JWT_AUTH_ALGORITHM"
+	$expireTime : our JWT lifetime in minutes, defined in the env file as "JWT_TOKEN_LIFETIME" 
+	
+	*/
 	private static $privateKey = false;
-	private static $publicKey = false;
 	private static $algo = false;
 	private static $expireTime = 30;
 
+	/*
+	we're initializing the class and getting the requiered env variables & keys
+	*/
     public function __construct(){
-    	self::$publicKey = Storage::disk('local')->get(getenv('JWT_AUTH_PRIVATE_KEY') );
     	self::$privateKey = Storage::disk('local')->get(getenv('JWT_AUTH_PRIVATE_KEY') );
     	self::$algo = getenv('JWT_AUTH_ALGORITHM');
     	self::$expireTime = getenv('JWT_TOKEN_LIFETIME');
     }
 
     public function getToken(Request $request){
-    	return response( 
-    		$this->createToken($request), 
-    		200 )
-    	->header(
-    		'Content-Type', 
-    		'application/json'
-    	);
+    	return response( $this->createToken($request), 200 )->header('Content-Type', 'application/json');
     }
 
-
-    public function createToken(Request $request){
+    /*
+    Here we're creating the JWT, using a private key file, which location was defined in the env file and the key itself was retrieved into the private var "privateKey" 
+    */
+    protected function createToken(Request $request){
     	$iat = date("U");
     	$payload = array (
 			'name' => 'EXAMPLE',
-			//'jti' => 'c742e156-b995-4bda-b546-e08e877ee93b',
 			'iat' => intval($iat),
-			'exp' => $iat+(self::$expireTime*60*1000),
+			'exp' => $iat+(self::$expireTime*60),
 		);
 
 		$JWT = JWT::encode($payload,self::$privateKey,self::$algo);
 		return $JWT;
     }
-
-    public function test(Request $request){
-    	echo "success";
-    }
-
 
 }
