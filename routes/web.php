@@ -11,6 +11,11 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/token', 'JWTController@getToken');
+
+$router->group(['middleware' => ['json.check','jwt.check'] ], function () use ($router) {
+	
+	$router->post('/verify','JWTController@decodeToken');
+	$router->post('/test','JWTController@test');
+
 });
