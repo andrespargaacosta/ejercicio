@@ -25,7 +25,7 @@ $router->group(['middleware' => ['json.check','jwt.check'] ], function () use ($
 	1.- shows the students, takes an optional path (/page/) and a "page" (an int) parameter for pagination
 	2.- takes a required parameter (an int) to show a course, returns a 404 if can't match the required id 
 	3.- show all the courses, takes no argument
-	4.- creates a course based on the requiered id (int) plus sent JSON sent through POST
+	4.- creates a course based on the sent JSON through POST
 	5.- updates a course based on the requiered id (int) plus sent JSON sent through PUT
 	6.- deletes the course based on the path id, returns a 404 if can't match the required id 
 	*/
@@ -41,7 +41,7 @@ $router->group(['middleware' => ['json.check','jwt.check'] ], function () use ($
 	1.- shows the students, takes an optional path (/page/) and a "page" (an int) parameter for pagination
 	2.- takes a required parameter (an int) to show a course, returns a 404 if can't match the required id 
 	3.- show all the students, takes no argument
-	4.- creates a student based on the requiered id (int) plus sent JSON sent through POST
+	4.- creates a student based on the sent JSON  through POST
 	5.- updates a student based on the requiered id (int) plus sent JSON sent through PUT
 	6.- deletes the student based on the path id, returns a 404 if can't match the required id 
 	*/
