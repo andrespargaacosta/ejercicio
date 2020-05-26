@@ -33,7 +33,7 @@ class JWTController extends BaseController{
     }
 
     public function getToken(Request $request){
-    	return response( $this->createToken($request), 200 )->header('Content-Type', 'application/json');
+    	return response( $this->createToken($request), 200 );
     }
 
     /*
